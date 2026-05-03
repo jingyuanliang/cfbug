@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wanted
+  labels:
+    app: wanted
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wanted
+  template:
+    metadata:
+      labels:
+        app: wanted
+    spec:
+      containers:
+        - name: agnhost
+          image: registry.k8s.io/e2e-test-images/agnhost:2.63.0
+          args:
+            - netexec
+            - --http-override=/echo?msg=wanted
+          ports:
+            - name: http
+              containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wanted
+spec:
+  type: ClusterIP
+  clusterIP: 34.118.225.10
+  selector:
+    app: wanted
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unwanted
+  labels:
+    app: unwanted
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: unwanted
+  template:
+    metadata:
+      labels:
+        app: unwanted
+    spec:
+      containers:
+        - name: agnhost
+          image: registry.k8s.io/e2e-test-images/agnhost:2.63.0
+          args:
+            - netexec
+            - --http-override=/echo?msg=unwanted
+          ports:
+            - name: http
+              containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: unwanted
+spec:
+  type: ClusterIP
+  clusterIP: 34.118.225.20
+  selector:
+    app: unwanted
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
