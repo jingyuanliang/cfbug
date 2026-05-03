@@ -1,0 +1,16 @@
+{
+  "name": "proxy",
+  "compatibility_date": "2026-03-10",
+  "main": "index.js",
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "vpc_services": [
+    {
+      "binding": "PRIVATE_API",
+      "service_id": "019ded59-8e1b-7d93-ad12-f51493d26690",
+      "remote": true
+    }
+  ]
+}
