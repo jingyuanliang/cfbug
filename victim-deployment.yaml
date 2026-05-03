@@ -19,7 +19,7 @@ spec:
           image: registry.k8s.io/e2e-test-images/agnhost:2.63.0
           args:
             - netexec
-            - --http-override=/echo?msg=wanted
+            - --http-override=/hostname
           ports:
             - name: http
               containerPort: 8080
@@ -60,7 +60,7 @@ spec:
           image: registry.k8s.io/e2e-test-images/agnhost:2.63.0
           args:
             - netexec
-            - --http-override=/echo?msg=unwanted
+            - --http-override=/hostname
           ports:
             - name: http
               containerPort: 8080
