@@ -6,11 +6,12 @@
     "enabled": true,
     "head_sampling_rate": 1
   },
-  "vpc_services": [
-    {
-      "binding": "PRIVATE_API",
-      "service_id": "019ded46-ee3e-7bf0-97d5-60b5db6d7aeb",
-      "remote": true
-    }
-  ]
+  "unsafe": {
+    "bindings": [
+      {
+        "name": "PRIVATE_API",
+        "type": "inherit"
+      }
+    ]
+  }
 }
